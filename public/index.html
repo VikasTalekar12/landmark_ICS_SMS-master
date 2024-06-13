@@ -112,7 +112,7 @@
         <td>
           <select id="channel">
             <option value="ICS_SMS">ICS_SMS</option>
-            <option value="ICS_Karix">ICS_Karix</option>
+            <option value="Karix_SMS">Karix_SMS</option>
           </select>
         </td>
       </tr>
@@ -151,10 +151,7 @@
        <tr id="trEntityID">
         <td>Entity ID  : </td>
         <td>
-          <select id="entityid" name="entityid" class="form-control" required onchange="changeOtherSelect(this.value)">
-            <option value="id1">id1</option>
-            <option value="id2">id2</option>    
-          </select>
+            <input id="entityid" type="text" />
         </td>
       </tr>
 
@@ -169,6 +166,14 @@
         <td>Message Text : </td>
         <td>
           <textarea id="message" placeholder="Message text will appear on selection of DLT Template" type="text" style="width:300px;height:100px;"></textarea>
+        </td>
+      </tr>
+      <tr id="trTextcount">
+        <td>Text Count : </td>
+        <td>
+          <label id="Textcount"></label>
+          <span id="char">0</span>
+          <span id="word">0</span>
         </td>
       </tr>
       <tr id="trCampaignname">
@@ -189,7 +194,13 @@
       <td><select  id="MobileNumber">
         <option></option>
       </select> </td>
-      </tr>       
+      </tr>             
+    <tr id="trCardnumber">
+      <td>Card Number : </td>
+      <td><select  id="CardNumber">
+        <option></option>
+      </select> </td>
+      </tr>
     </table>
     
   </div>
@@ -312,6 +323,32 @@
 </body>
 <script type="text/javascript">
   //<!--This declaration to make the dropdown searchable-->
+
+  let area = document.getElementById('message');
+        let char = document.getElementById('char');
+        let word = document.getElementById('word');
+        area.addEventListener('input', function () {
+
+// Count characters 
+let content = this.value;
+char.textContent = content.length;
+
+// Remove empty spaces from start and end 
+content.trim();
+console.log(content);
+
+let wordList = content.split(/\s/);
+
+// Remove spaces from between words 
+let words = wordList.filter(function (element) {
+    return element != "";
+});
+
+// Count words 
+word.textContent = words.length;
+});
+
+
              $(document).ready(function() {
               $( function() {
                             $( "#tabs" ).tabs();
@@ -336,6 +373,9 @@
              $('#btnEdit').click(function(){
               $('#message').attr('disabled',false);
             });  
+
+            $('#word').hide();
+
 
              $('#btnTest').click(function(){
               $('#btnTest').hide();
@@ -404,8 +444,11 @@ function changeOtherSelect(value){
                 "Params9":$("#Params9 option:selected" ).val(),
                 
                 "user":$("#user option:Selected").val(),
-                "entityid":$("#entityid option:Selected").val(),
+                "CardNumber":$("#CardNumber option:Selected").val(),
                 "message": $("#message").val(),
+                "entityid": $("#entityid").val(),
+                "entityid": $("#entityid").val(),
+                
                 "TEMP_ID": $("#TEMP_ID").val(),
                 "Campaignname": $("#Campaignname").val(),
                 "campaignTag": $("#campaignTag").val(),

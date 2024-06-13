@@ -176,12 +176,13 @@ define([
         "MobileNumber": "{{"+$("#MobileNumber option:selected" ).val()+"}}",
         
         "user":$("#user option:Selected").val(),
-        "entityid":$("#entityid option:Selected").val(),
+        "CardNumber":$("#CardNumber option:Selected").val(),
         "message": $("#message").val(),
         "TEMP_ID": $("#TEMP_ID").val(),
         "Campaignname": $("#Campaignname").val(),
         "campaignTag": $("#campaignTag").val(),
         "FROM": $("#FROM").val(),
+        "entityid": $("#entityid").val(),
 
         "Params1": "{{"+$("#Params1 option:selected" ).val()+"}}",
         "Params2": "{{"+$("#Params2 option:selected" ).val()+"}}",

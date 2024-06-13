@@ -195,7 +195,6 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 	
 	logger.info('From:'+bodyJason.FROM);
 	logger.info('msisdn:'+bodyJason.msisdn);
-	logger.info('TEMP_ID:'+bodyJason.TEMP_ID);
 				logger.info('smsgid:'+smsgid);
 
 				var userAcc = config.get("Creds");
@@ -216,9 +215,6 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 				logger.info('Password:'+Password);
 				logger.info('message:'+message);
 				logger.info('user:'+user);
-				logger.info('ApiUrl:'+ApiUrl);
-
-				logger.info('SMSText:'+config.get('SMSText.SMSTextmessage'));
 
 				bodyJasonNew= config.get('SMSText.SMSTextmessage');
 				bodyJasonNew=bodyJasonNew.replace("#USERNAME",user).replace("#PASSWORD",Password).replace("#from",FROM)
@@ -323,7 +319,6 @@ app.post('/ics/execute', (req, res) => {
 			}
         if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {			
 		var decodedArgs = decoded.inArguments[0];
-			var channel=JSON.stringify(decodedArgs.channel).substring(1, JSON.stringify(decodedArgs.channel).length - 1);
 			logger.info("Raw data: "+JSON.stringify(decodedArgs));
 		var MobileNumber=JSON.stringify(decodedArgs.MobileNumber).substring(1, JSON.stringify(decodedArgs.MobileNumber).length - 1);
 		
@@ -331,6 +326,7 @@ app.post('/ics/execute', (req, res) => {
 				var Password;				
 			    var user1;
 				var smsgid;
+
 
 				var message=JSON.stringify(decodedArgs.message).substring(1, JSON.stringify(decodedArgs.message).length - 1);
 				var TEMP_ID=JSON.stringify(decodedArgs.TEMP_ID).substring(1, JSON.stringify(decodedArgs.TEMP_ID).length - 1);
@@ -455,6 +451,9 @@ app.post('/ics/execute', (req, res) => {
 		{
 			user1=user;
 		}
+		var message1=message.replace(/\n/g, '')
+
+		var message2= JSON.stringify(JSON.parse(message))
 
 		logger.info('user1:'+user1);
 		logger.info('Password1:'+Password);
@@ -462,13 +461,13 @@ app.post('/ics/execute', (req, res) => {
 		logger.info('msisdn1:'+MobileNumber);
 		logger.info('smsgid1:'+smsgid);
 		logger.info('message:'+message);
+		logger.info('message:'+message1);
+		logger.info('message:'+message2);
 
 		bodyJason= config.get('SMSText.SMSTextmessage');
 		bodyJason=bodyJason.replace("#USERNAME",user1).replace("#PASSWORD",Password).replace("#from",FROM)
-		.replace("#to",msisdn).replace("#message",message).replace("#smsgid",smsgid);
+		.replace("#to",msisdn).replace("#message",message1).replace("#smsgid",smsgid);
 		bodyJason=JSON.parse(bodyJason);
-
-
 		
 			// bodyJason= config.get('SMSText.SMSTextmessage');
 			// bodyJason=bodyJason.replace("#USERNAME",user).replace("#PASSWORD",Password).replace("#from",FROM)
@@ -483,26 +482,27 @@ app.post('/ics/execute', (req, res) => {
 			'url': ApiUrl
 			};
 
-			request(options, function (error, response) { 
-		if (error) {
-			logger.info('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Error:"+JSON.stringify(error) );
-				if(process.env.debug =='Y')
-				logger.info	('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Error:"+JSON.stringify(error) );
-			}
-			else{
-				logger.info('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Response:"+JSON.stringify(response.body));
-					if(process.env.debug =='Y')
-					logger.info	('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Response:"+JSON.stringify(response.body));
-				}
-			
-			});		
-			
-			
+			logger.info('options:'+JSON.stringify(options));
+
 			request(options, function (error, response) {
 				if (error) {
-				logger.info("Date:"+Date()+"MobileNumber:" +msisdn +" Error:" +JSON.stringify(error));
+				  logger.info(
+					"Date:" +
+					  Date() +
+					  " MobileNumber:" +
+					  msisdn +
+					  " Error:" +
+					  JSON.stringify(error)
+				  );
 				  if (process.env.debug == "Y")
-				logger.info("Date:" +Date() +"MobileNumber:" +msisdn +"Error:" +JSON.stringify(error));
+					logger.info(
+					  "Date:" +
+						Date() +
+						" MobileNumber:" +
+						msisdn +
+						" Error:" +
+						JSON.stringify(error)
+					);
 				  res.send(400, error);
 				} else {
 				  logger.info(
@@ -525,13 +525,6 @@ app.post('/ics/execute', (req, res) => {
 				  res.send(200, response);
 				}
 			  });
-		
-
-
-
-
-
-		
 	   }			
             res.send(200, 'Execute');
         } 			
