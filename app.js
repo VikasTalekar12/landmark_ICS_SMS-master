@@ -112,6 +112,8 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 	var bodyJasonNew;
 	var smsgid="ICS_TEST";
 	var message=bodyJason.message;	
+	var FROM=bodyJason.FROM;	
+	var msisdn=bodyJason.msisdn	
 	var user;
 	var entityid=bodyJason.entityid;
 	var TEMP_ID=bodyJason.TEMP_ID;
@@ -221,7 +223,7 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 				.replace("#to",msisdn).replace("#message",message).replace("#smsgid",smsgid);
 				bodyJasonNew=JSON.parse(bodyJasonNew);
 				
-				options = {
+				var options = {
 				'method': 'POST',
 				"body":bodyJasonNew,
 				"json":true,
@@ -451,22 +453,22 @@ app.post('/ics/execute', (req, res) => {
 		{
 			user1=user;
 		}
-		var message1=message.replace(/\n/g, '')
+		// var message1=message.replace(/\n/g, '')
 
-		var message2= JSON.stringify(JSON.parse(message))
+		// var message2= JSON.stringify(JSON.parse(message))
 
-		logger.info('user1:'+user1);
+		 logger.info('user1:'+user1);
 		logger.info('Password1:'+Password);
 		logger.info('From1:'+FROM);
 		logger.info('msisdn1:'+MobileNumber);
 		logger.info('smsgid1:'+smsgid);
 		logger.info('message:'+message);
-		logger.info('message:'+message1);
-		logger.info('message:'+message2);
+		//logger.info('message:'+message1);
+		//logger.info('message:'+message2);
 
 		bodyJason= config.get('SMSText.SMSTextmessage');
 		bodyJason=bodyJason.replace("#USERNAME",user1).replace("#PASSWORD",Password).replace("#from",FROM)
-		.replace("#to",msisdn).replace("#message",message1).replace("#smsgid",smsgid);
+		.replace("#to",MobileNumber).replace("#message",message).replace("#smsgid",smsgid);
 		bodyJason=JSON.parse(bodyJason);
 		
 			// bodyJason= config.get('SMSText.SMSTextmessage');
