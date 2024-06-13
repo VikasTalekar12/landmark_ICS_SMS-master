@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+    table {
+            border-collapse: collapse;
+        }
+        th {
+            background-color:#e9dfd5;
+            Color:#000000;
+        }
+        
+        .gfg {
+            border-collapse:separate;
+            border-spacing:0 7px;
+        }
+</style>
+
+	    <title></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/styles.css">
+	<link rel="icon" type="image/png" href="/favicon.ico" />
+	<style>
+.accordion {
+ 
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  color: blue; 
+  
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+}
+</style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+ 
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<link href="css/select2.min.css" rel="stylesheet" />
+<script type="text/javascript" src="js/select2.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script type="text/javascript" src="js/require.js"></script>
+
+    <script type="text/javascript">
+        (function () {
+            var config = {
+                baseUrl: 'js'
+            };
+
+            var dependencies = [
+                'customActivity'
+            ];
+
+            require(config, dependencies);
+        })();
+
+        
+    </script>
+	
+	
+</head>
+
+<body>
+  <table style="width: 100%;" aria-label="parent content">
+    <tr>
+      <th style="text-align: -webkit-center;">
+        <table aria-label="Header content">
+          <tr>
+            <th>
+              <h3>
+      
+                <img src="images/Capture.JPG" style="text-align:right;" alt="CC logo">
+                <span> </span>
+              </h3>
+            </th>
+          </tr>
+          <tr>
+            <td>
+<form id="myform" >
+<label>Data Mapping </label>
+<div id="tabs">
+  <ul>
+    <li><a href="#tabsCamp">Campaign</a></li>
+    <li><a href="#tabsPers">Personalization</a></li>
+    <li><a href="#tabsTest">Test</a></li>
+
+  </ul>
+  <div id="tabsCamp">
+    <table  class="gfg" id="tblMsgDetails" style="display: block;" aria-label="form content">
+      <tr>
+        <td>Target Fields  </td>
+        <td>Source Fields</td>
+      </tr>
+      <tr id="trVender">
+        <td>Vender : </td>
+        <td>
+          <select id="channel">
+            <option value="ICS_SMS">ICS_SMS</option>
+            <option value="ICS_Karix">ICS_Karix</option>
+          </select>
+        </td>
+      </tr>
+<tr>
+  <tr id="trMSG_Type">
+    <td>Type : </td>
+    <td>
+      <select id="MSG_Type">
+        <option value="Promotional">Promotional</option>
+        <option value="Transactional">Transactional</option>
+      </select>
+    </td>
+  </tr>
+
+</tr>
+      <tr id="trUSER">
+        <td>User  : </td>
+        <td>
+          <select id="user" name="user" class="form-control" required onchange="changeOtherSelect(this.value)">
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Maxfashion">Maxfashion</option>
+            <option value="Homecentre">Homecentre</option>  
+            <option value="sparHyper">sparHyper</option>
+            <option value="easybuytrans">easybuytrans</option>  
+            <option value="lmg_babyshop">lmg_babyshop</option>
+            <option value="landmarkotp">landmarkotp</option>  
+          </select>
+        </td>
+      </tr>
+      <tr id="trDLTtemplateid">
+        <td>DLT Template ID : </td>
+        <td>
+          <input id="TEMP_ID" type="text" />
+        </td>
+      </tr>
+       <tr id="trEntityID">
+        <td>Entity ID  : </td>
+        <td>
+          <select id="entityid" name="entityid" class="form-control" required onchange="changeOtherSelect(this.value)">
+            <option value="id1">id1</option>
+            <option value="id2">id2</option>    
+          </select>
+        </td>
+      </tr>
+
+
+      <tr id="trFROM">
+        <td>From/SMS Header : </td>
+        <td>
+            <input id="FROM" type="text" />                  
+        </td>
+      </tr>
+      <tr id="trMESSAGE">
+        <td>Message Text : </td>
+        <td>
+          <textarea id="message" placeholder="Message text will appear on selection of DLT Template" type="text" style="width:300px;height:100px;"></textarea>
+        </td>
+      </tr>
+      <tr id="trCampaignname">
+        <td>Campaign Name : </td>
+        <td>
+          <input id="Campaignname" type="text" />
+        </td>
+      </tr>
+      <tr id="trcampaignTag">
+        <td>Campaign Tag : </td>
+        <td>
+          <input id="campaignTag" type="text" />
+        </td>
+      </tr>
+
+    <tr id="trMobileNumber">
+      <td>Mobile Number : </td>
+      <td><select  id="MobileNumber">
+        <option></option>
+      </select> </td>
+      </tr>       
+    </table>
+    
+  </div>
+  <div id="tabsPers">
+    <table  class="gfg" id="tblMsgDetails" style="display: block;" aria-label="form content">
+      <tr id="trHeader" align="left">
+        <th>Params</th>
+        <th>Type</th>
+        <th>Value </th>
+      </tr>
+      <tr id="trParams1">
+        <td>Parameter 1 : </td>
+        <td>
+          <select  id="Params1">
+           </select>
+        </td>
+      </tr>
+      <tr id="trParams2">
+        <td>Parameter 2  : </td>
+        <td>
+          
+          <select  id="Params2">   
+           </select>
+        </td>
+      </tr>
+      <tr id="trParams3">
+        <td>Parameter 3 : </td>
+        <td><select  id="Params3">            
+        </select></td>
+        
+      </tr>
+      <tr id="trParams4">
+        <td>Parameter 4 : </td>
+        <td><select  id="Params4">         
+                 </select></td>        
+      </tr>
+      <tr id="trParams5">
+        <td>Parameter 5 : </td>
+        <td><select  id="Params5">             
+            </select></td>
+        
+      </tr>
+      <tr id="trParams6">
+        <td>Parameter 6 : </td>
+    
+        <td><select  id="Params6">
+        </select></td>
+        
+      </tr>
+      <tr id="trParams7">
+        <td>Parameter 7 : </td>
+       
+        <td><select  id="Params7"></select></td>
+        
+      </tr>
+      <tr id="trParams8">
+        <td>Parameter 8 : </td>
+        <td>
+          <select  id="Params8"></select>
+        </td>
+        
+      </tr>
+      <tr id="trParams9">
+        <td>Parameter 9 : </td>
+        <td>
+          <select  id="Params9"></select>
+        </td>
+        </tr>
+      </table>
+  </div>
+  <div id="tabsTest">
+    <table  class="gfg" id="tblMsgDetails" style="display: block;" aria-label="form content">
+      <tr id="trtestResult" style="display: none;">
+        <td colspan="2">
+          <div id="divtestResult" style="
+          box-sizing: border-box;
+          border: solid;
+          border-color: cornflowerblue;
+          color: red;
+          background-color: azure;
+        ">
+       <div style="position: relative;font-weight:bold;font-size: larger;top: -9px;text-align: right;align-content: center;align-self: end;" id="closeMessage">X</div>  
+      </div>  
+        </td>
+    
+      </tr>
+      <tr id="trtest">
+        <td  style="
+        box-sizing: border-box;
+        border: solid;
+        border-color: cornflowerblue;
+        background-color: azure;
+      " colspan="2"><input type="button" id="btnTest" value="Test Message"/> 
+      <div style="position: relative;font-weight:bold;font-size: larger;top: -15px;text-align: right;align-content: center;align-self: end;color: red;display:none ;" id="Close">X</div>  
+      <input id="testMobile" placeholder="Enter 91 and  Mobile number " style="display: none;" type="text" />
+    
+    <div id="divTest">
+      <select  id="testMobileNumbers" style="display: none; width: 250px;"  multiple="multiple" ></select> 
+      <input type="button" id="btnSendTest" style="display: none;" onclick="return fncSendTest()" value="Send Test"/>   
+    </div>
+    
+    </td>
+         
+    </table>
+    </div>
+   </div>
+
+</form>
+</td>
+</tr>
+</table>
+</th>      
+</tr>
+</table>
+<div style="
+    color: gray;
+    font-size: small;
+    text-align: right;
+">Copyright @ 2024, Customer Centria. All rights Reserved</div>
+</body>
+<script type="text/javascript">
+  //<!--This declaration to make the dropdown searchable-->
+             $(document).ready(function() {
+              $( function() {
+                            $( "#tabs" ).tabs();
+                          } );
+
+                 $('#testMobile').keypress(function(e) {
+                    if ( e.keyCode == 13 ) {  // detect the enter key
+                      var regex =  /^(91)?[6-9][0-9]{9}$/;
+                      if (regex.test($("#testMobile").val())) {
+                        $('#testMobileNumbers').append(new Option ($('#testMobile').val(),$('#testMobile').val(),true,true));
+                         $('#testMobile').val('');
+                      } else {
+                         alert('invalid Mobile number')
+                         $('#testMobile').val('');
+                      }
+                     
+                    }
+ 
+             });
+ 
+             });
+             $('#btnEdit').click(function(){
+              $('#message').attr('disabled',false);
+            });  
+
+             $('#btnTest').click(function(){
+              $('#btnTest').hide();
+              $('#Close').show();
+              $('#divTest').show();
+              $('#testMobile').show();
+              $('#btnSendTest').show();
+              $('#testMobileNumbers').select2();
+             });  
+             $('#Close').click(function(){
+              $('#Close').hide();
+              $('#btnTest').show();
+              $('#divTest').hide();
+              $('#testMobile').hide();
+              $('#btnSendTest').hide();
+             });
+             $("#closeMessage").click(function(){
+              $("#divtestResult").hide();
+             })
+             
+             
+function changeOtherSelect(value){
+            let secondSelect = document.getElementById('FROM');
+            for(let i=0; i<secondSelect.childNodes.length; i++){
+                if(secondSelect.childNodes[i].value == value){
+                secondSelect.childNodes[i].selected = true;
+                return true;
+                }
+            }
+        }
+             function getTemplateDetailsbyId(text)
+             {
+                 return new Promise((resolve, reject) =>{
+                     $.ajax({
+                 type: 'GET',
+                 url: '/ics/GetTemplateDetailsbyId?tempId='+text ,
+                 contentType: 'application/json',
+                 dataType: 'json',
+                 success: function(response){ console.log( response ); resolve(response) ; },
+                 error:function(XMLHttpRequest, textStatus, errorThrown){console.log( errorThrown);
+                     reject(errorThrown) ;
+                 }
+               } );
+ 
+                 })
+             }
+             function fncSendTest()
+             {
+         
+              var mobilenumbers =$("#testMobileNumbers").val();
+             // var sel = document.getElementById("FROM");
+              //var text= sel.options[sel.selectedIndex].text;
+
+              mobilenumbers.forEach(Mobile => {
+                bodyJason=
+              {
+                "msisdn": Mobile,
+                "Params1":$("#Params1 option:selected" ).val(),
+                "Params2":$("#Params2 option:selected" ).val(),
+                "Params3":$("#Params3 option:selected" ).val(),
+                "Params4":$("#Params4 option:selected" ).val(),
+                "Params5":$("#Params5 option:selected" ).val(),
+                "Params6":$("#Params6 option:selected" ).val(),
+                "Params7":$("#Params7 option:selected" ).val(),
+                "Params8":$("#Params8 option:selected" ).val(),
+                "Params9":$("#Params9 option:selected" ).val(),
+                
+                "user":$("#user option:Selected").val(),
+                "entityid":$("#entityid option:Selected").val(),
+                "message": $("#message").val(),
+                "TEMP_ID": $("#TEMP_ID").val(),
+                "Campaignname": $("#Campaignname").val(),
+                "campaignTag": $("#campaignTag").val(),
+                "FROM": $("#FROM").val(),
+                };
+              
+              $("#trtestResult").show();
+              $("#divtestResult").show();
+              testAPiCall(bodyJason)
+              .then(sucess => {
+                $("#divtestResult").append('<div>'+ JSON.stringify(sucess.body)+'</div>');
+              })
+              .catch(error => {
+                $("#divtestResult").append('<div>'+ JSON.stringify(error)+'</div>');
+              })
+
+              })
+              
+             
+             return true;
+             }
+          function testAPiCall(bodyJason)
+          { 
+            return new Promise((resolve, reject) =>{
+              $.ajax({
+                 type: 'POST',
+                 url: '/ics/SendTest',
+                 data:bodyJason,
+                 dataType: 'json',
+                 success: function(response){ console.log( response ); resolve(response) ; },
+                 error:function(XMLHttpRequest, textStatus, errorThrown){console.log( errorThrown);
+                     reject(errorThrown) ;
+                 }
+               } );
+              })
+          }
+     
+           function testAPiCall1(bodyJason)
+          { 
+            return new Promise((resolve, reject) =>{
+              $.ajax({
+                 type: 'POST',
+                 url: '/ics/SendTestnew',
+                 data:bodyJason,
+                 dataType: 'json',
+                 success: function(response){ console.log( response ); resolve(response) ; },
+                 error:function(XMLHttpRequest, textStatus, errorThrown){console.log( errorThrown);
+                     reject(errorThrown) ;
+                 }
+               } );
+              })
+          }
+     
+     
+     
+     </script>
+</html>

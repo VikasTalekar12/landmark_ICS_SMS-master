@@ -1,0 +1,50 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\Landmark\\ICS_Landmark\\Landmark_one\\landmark_ICS_SMS-master\\landmark_ICS_SMS-master\\logs\\.a6e532633c98ba3de8fcb80e720495fc33725401-audit.json",
+    "files": [
+        {
+            "date": 1718127193550,
+            "name": "D:\\Landmark\\ICS_Landmark\\Landmark_one\\landmark_ICS_SMS-master\\landmark_ICS_SMS-master\\logs\\logs-2024-06-11-23.log",
+            "hash": "d9fcd5f3423f21cc374d4b34ebc48020395ef2787a8a1e37957999baff68dfbf"
+        },
+        {
+            "date": 1718131224769,
+            "name": "D:\\Landmark\\ICS_Landmark\\Landmark_one\\landmark_ICS_SMS-master\\landmark_ICS_SMS-master\\logs\\logs-2024-06-12-00.log",
+            "hash": "2a580d5e29f41c0f6c24fe778b450581dd65ab8df7819113954b1f9618ee79ef"
+        },
+        {
+            "date": 1718170280228,
+            "name": "D:\\Landmark\\ICS_Landmark\\Landmark_one\\landmark_ICS_SMS-master\\landmark_ICS_SMS-master\\logs\\logs-2024-06-12-11.log",
+            "hash": "188b3f732b2f0975bd3f9c683f8a78288d7aedfc4f1011012492707547cf1f79"
+        },
+        {
+            "date": 1718187783868,
+            "name": "D:\\Landmark\\ICS_Landmark\\Landmark_one\\landmark_ICS_SMS-master\\landmark_ICS_SMS-master\\logs\\logs-2024-06-12-15.log",
+            "hash": "efae76fcd7cee69712284cac7bd573f7e10bdba1419c0569a4d4753a6b361d74"
+        },
+        {
+            "date": 1718252638312,
+            "name": "D:\\Landmark\\ICS_Landmark\\Landmark_one\\landmark_ICS_SMS-master\\landmark_ICS_SMS-master\\logs\\logs-2024-06-13-09.log",
+            "hash": "0967f04e113427747cd24a974d863e5f06ea6611b20b26ae3b0060a05465f63d"
+        },
+        {
+            "date": 1718253710165,
+            "name": "D:\\Landmark\\ICS_Landmark\\Landmark_one\\landmark_ICS_SMS-master\\landmark_ICS_SMS-master\\logs\\logs-2024-06-13-10.log",
+            "hash": "d74b017f4aaf954bbb5a3c61ab6707fef8c80d28ba59c5e4cfe074a52dcdb094"
+        },
+        {
+            "date": 1718261623258,
+            "name": "D:\\Landmark\\ICS_Landmark\\Landmark_one\\landmark_ICS_SMS-master\\landmark_ICS_SMS-master\\logs\\logs-2024-06-13-12.log",
+            "hash": "63cf10362c92976070aecb729fe45949f281e7f7468b6ce62d1977f711527bd1"
+        },
+        {
+            "date": 1718269087741,
+            "name": "D:\\Landmark\\ICS_Landmark\\Landmark_one\\landmark_ICS_SMS-master\\landmark_ICS_SMS-master\\logs\\logs-2024-06-13-14.log",
+            "hash": "32dcbf7a48542356f64232bc8ce66c8be657751bcb8fbdf2f57e1cfde717a679"
+        }
+    ],
+    "hashType": "sha256"
+}

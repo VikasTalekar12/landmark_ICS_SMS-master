@@ -1,0 +1,152 @@
+'use strict';
+// Module Dependencies
+// -------------------
+var express     = require('express');
+var bodyParser  = require('body-parser');
+var errorhandler = require('errorhandler');
+var http        = require('http');
+var path        = require('path');
+var request     = require('request');
+var routes      = require('./routes');
+var activity    = require('./routes/activity');
+
+let Client = require('ssh2-sftp-client');
+let sftp = new Client();
+
+
+
+const log4js = require('log4js');
+
+log4js.configure({
+  appenders: { transact_pdf: { type: 'file', filename: '/app/sms_files/sms_app.txt' } },
+  categories: { default: { appenders: ['transact_pdf'], level: 'error' } }
+});	
+
+const logger = log4js.getLogger('transact_pdf');
+
+  logger.error('abcd_link11.csv pushed');
+  logger.info('abcd_link11.csv pushed');
+  
+  
+
+//const csv = require('csv-parser')
+//const fs = require('fs')
+
+//var headerArr=['MOBILENUMBER','MESSAGE','oa','CAMPAIGNCODE','OFFERCODE','TREATMENTCODE','AUDIENCEID']
+
+var app = express();
+
+// Configure Express
+app.set('port', process.env.PORT || 3000);
+app.use(bodyParser.raw({type: 'application/jwt'}));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//app.use(express.methodOverride());
+//app.use(express.favicon());
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Express in Development Mode
+if ('development' == app.get('env')) {
+  app.use(errorhandler());
+}
+
+// HubExchange Routes
+app.get('/', routes.index );
+app.post('/login', routes.login );
+app.post('/logout', routes.logout );
+
+app.post('/example', (req, res) => {
+ res.send(req.body.filename + req.body.sourcename + req.body.sendername + req.body.msg);
+ 
+ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+ const csvWriter = createCsvWriter({
+  path: '/app/sms_files/outnew.csv',
+  header: [
+    {id: 'name', title: 'Name'},
+    {id: 'surname', title: 'Surname'},
+    {id: 'age', title: 'Age'},
+    {id: 'gender', title: 'Gender'},
+  ]
+});
+
+const data = [
+  {
+    name: 'John',
+    surname: 'Snow',
+    age: 26,
+    gender: 'M'
+  }, {
+    name: 'Clair',
+    surname: 'White',
+    age: 33,
+    gender: 'F',
+  }, {
+    name: 'Fancy',
+    surname: 'Brown',
+    age: 78,
+    gender: 'F'
+  }
+];
+
+csvWriter
+  .writeRecords(data)
+  .then(()=> console.log('The CSV file was written successfully'));
+ 
+ 
+sftp.connect({
+  host: 'files.mx9.in',
+  port: '22',
+  username: 'demo_sftp',
+  password: 'thiiqu9iebiaP9o'
+}).then(() => {
+	// Push SMS file to ICS SFTP /upload/IN Folder
+	 return sftp.put('/app/sms_files/outnew.csv','/upload/IN/outnew.csv');
+	 	
+  //return sftp.list('/ccengage/After30');
+}).then(() => {
+	// Push SMS file to ICS SFTP /upload/IN Folder
+	 return sftp.put('/app/sms_files/abcd_link11.done','/upload/IN/abcd_link11.done');
+	 	
+  //return sftp.list('/ccengage/After30');
+}).then(() => {
+  console.log('Closing SFTP');
+  logger.error('abcd_link11.csv pushed');
+  logger.info('abcd_link11.csv pushed');
+   //return sftp.rename('/ccengage/After30/Sunil.txt','/ccengage/After30/Sunil.csv')
+   return sftp.end();
+   
+}).catch(err => {
+  console.log(err, 'catch error');
+});
+ 
+	/*sftp.connect({
+  host: '199.241.140.134',
+  port: '4522',
+  username: 'ccengage',
+  password: 'CcEng#19Urls'
+}).then(() => {
+	// Push SMS file to ICS SFTP /upload/IN Folder
+	 return sftp.rename('/ccengage/After30/Sunil.txt','/ccengage/After30/Sunil.csv')
+	 	
+  //return sftp.list('/ccengage/After30');
+}).then(() => {
+  console.log('Closing SFTP');
+   //return sftp.rename('/ccengage/After30/Sunil.txt','/ccengage/After30/Sunil.csv')
+   return sftp.end();
+   
+}).catch(err => {
+  console.log(err, 'catch error');
+});*/
+ console.log('POST FORM BODY', req.body);
+});
+
+// Custom Hello World Activity Routes
+app.post('/journeybuilder/save/', activity.save );
+app.post('/journeybuilder/validate/', activity.validate );
+app.post('/journeybuilder/publish/', activity.publish );
+app.post('/journeybuilder/execute/', activity.execute );
+
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});

@@ -1,0 +1,15 @@
+{
+    "SMSText":{
+        "url":"https://sms.sendmsg.in/datasend",
+        "SMSTextmessage":"{\"user\":\"#USERNAME\",\"pass\":\"#PASSWORD\",\"smstosend\":[{\"from\":\"#from\",\"to\":\"#to\",\"smstext\":\"#message\",\"smsgid\":\"#smsgid\"}]}"
+    },
+    "Creds":[
+        {"user":"Lifestyle","password":"mKL3nskkv"},
+        {"user":"Maxfashion","password":"z9RpjQ9Z2"},
+		{"user":"Homecentre","password":"wNz9wpPDN"},
+        {"user":"sparHyper","password":"HZJ3We3EA"},
+		{"user":"easybuytrans","password":"ZphBaUbxu"},
+		{"user":"lmg_babyshop","password":"nZVGaAJocjBc"},
+		{"user":"landmarkotp","password":"oNjKfT6QA"}   
+    ]
+    } 

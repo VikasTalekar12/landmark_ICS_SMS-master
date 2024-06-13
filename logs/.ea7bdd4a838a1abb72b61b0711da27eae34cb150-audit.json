@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\CC Engage\\titan\\ICS\\code\\DEV\\Titan-ics-Integration\\Titan_Airtel\\logs\\.ea7bdd4a838a1abb72b61b0711da27eae34cb150-audit.json",
+    "files": [
+        {
+            "date": 1703246102204,
+            "name": "D:\\CC Engage\\titan\\ICS\\code\\DEV\\Titan-ics-Integration\\Titan_Airtel\\logs\\logs-2023-12-22-17.log",
+            "hash": "9b5be088edd7c017c8a835dbd5c0b18f8b9f61f36de8770d6a390e3b59bb3342"
+        }
+    ],
+    "hashType": "sha256"
+}

@@ -1,0 +1,70 @@
+{   "workflowApiVersion": "1.1",
+    "metaData": {
+        "icon": "images/cclogo.png",
+        "iconSmall": "images/cclogoSmall.png",
+        "category": "message",
+        "channel":"SMS"
+    },
+    "type": "REST",
+    "lang": {
+        "en-US": {
+            "name": "CC ICS Integration",
+          "description": "CC ICS Integration",
+          "step1Label": "Configure Activity"
+        }
+    },
+    "arguments": {
+        "execute": {
+           "inArguments":[],
+          "outArguments": [],
+          "url": "https://smtc-dev.azurewebsites.net/ics/execute", 
+           "verb": "POST",
+            "body": "",
+            "header": "",
+            "format": "json",
+            "useJwt": true,
+            "timeout": 10000
+        }
+    },
+    "configurationArguments": {
+      "applicationExtensionKey": "4be862fa-6fa3-4523-b4c4-c94fb4d582a1",
+      "save": {
+        "url": "https://smtc-dev.azurewebsites.net/ics/save",
+          "verb": "POST",
+        "useJwt": true
+       },
+       "publish": {
+        "url": "https://smtc-dev.azurewebsites.net/ics/publish",
+           "verb": "POST",
+        "useJwt": true
+       },
+      "stop": {
+        "url": "https://smtc-dev.azurewebsites.net/ics/stop",
+           "verb": "POST",
+        "useJwt": true
+      },
+      "validate": { 
+        "url": "https://smtc-dev.azurewebsites.net/ics/validate",
+        "verb": "POST",
+        "useJwt": true
+      }
+    },
+    "wizardSteps": [
+        { "label": "Configure Activity", "key": "step1" }
+    ],
+    "userInterfaces": {
+        "configModal": {
+            "height": 400,
+            "width": 1000,
+          "fullscreen": true
+        }
+    },
+    "schema": {
+        "arguments": {
+            "execute": {
+                "inArguments": [],
+                "outArguments": []
+            }
+        }
+    }
+}

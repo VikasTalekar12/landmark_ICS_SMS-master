@@ -1,0 +1,11 @@
+{"level":"info","message":"Express server listening on port 5000"}
+{"level":"info","message":"From:MAXFSN"}
+{"level":"info","message":"msisdn:919082551880"}
+{"level":"info","message":"TEMP_ID:"}
+{"level":"info","message":"smsgid:ICS_TEST"}
+{"level":"info","message":"Password:z9RpjQ9Z2"}
+{"level":"info","message":"message:Use OTP 1234, to register Max Kids Festival & enrol into Landmark Rewards and get updates over WhatsApp, SMS, and E-Mail from our Group companies. For T&C visit www.landmarkrewards.in"}
+{"level":"info","message":"user:Maxfashion"}
+{"level":"info","message":"ApiUrl:https://sms.sendmsg.in/datasend"}
+{"level":"info","message":"SMSText:{\"user\":\"#USERNAME\",\"pass\":\"#PASSWORD\",\"smstosend\":[{\"from\":\"#from\",\"to\":\"#to\",\"smstext\":\"#message\",\"smsgid\":\"#smsgid\"}]}"}
+{"level":"error"}

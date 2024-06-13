@@ -1,0 +1,21 @@
+{"level":"info","message":"Express server listening on port 5000"}
+{"level":"info","message":"From:EASYBY"}
+{"level":"info","message":"msisdn:919082551880"}
+{"level":"info","message":"TEMP_ID:"}
+{"level":"info","message":"smsgid:ICS_TEST"}
+{"level":"info","message":"Password:ZphBaUbxu"}
+{"level":"info","message":"message:Dear Customer,\\nThanks for Shopping at Easybuy! GO GREEN. SAVE PAPER! Opt-in to Easybuy WhatsApp & get your e-Invoice! Click\\nxy.abc\\n"}
+{"level":"info","message":"ApiUrl:https://sms.sendmsg.in/datasend"}
+{"level":"info","message":"SMSText:{\"user\":\"#USERNAME\",\"pass\":\"#PASSWORD\",\"smstosend\":[{\"from\":\"#from\",\"to\":\"#to\",\"smstext\":\"#message\",\"smsgid\":\"#smsgid\"}]}"}
+{"level":"error"}
+{"level":"info","message":"Express server listening on port 5000"}
+{"level":"info","message":"From:EASYBY"}
+{"level":"info","message":"msisdn:919082551880"}
+{"level":"info","message":"TEMP_ID:"}
+{"level":"info","message":"smsgid:ICS_TEST"}
+{"level":"info","message":"Password:ZphBaUbxu"}
+{"level":"info","message":"message:Dear Customer,\\nThanks for Shopping at Easybuy! GO GREEN. SAVE PAPER! Opt-in to Easybuy WhatsApp & get your e-Invoice! Click\\nxy.abc\\n"}
+{"level":"info","message":"user:easybuytrans"}
+{"level":"info","message":"ApiUrl:https://sms.sendmsg.in/datasend"}
+{"level":"info","message":"SMSText:{\"user\":\"#USERNAME\",\"pass\":\"#PASSWORD\",\"smstosend\":[{\"from\":\"#from\",\"to\":\"#to\",\"smstext\":\"#message\",\"smsgid\":\"#smsgid\"}]}"}
+{"level":"error"}
