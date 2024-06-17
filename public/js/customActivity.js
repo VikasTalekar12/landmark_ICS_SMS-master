@@ -3,7 +3,7 @@ define([
 ], function (
     Postmonger
 ) {
-    'use strict';
+    "use strict";
     console.log('Fisrt Start: ');
     var connection = new Postmonger.Session();
     var authTokens = {};
@@ -23,6 +23,7 @@ define([
         // $("#TemplateType").append('<option>Non Media</option>' );
 
         $("#MobileNumber").append('<option></option>' );
+        $("#CardNumber").append('<option></option>' );
         $("#Params1").append('<option></option>' );
         $("#Params2").append('<option></option>' );
         $("#Params3").append('<option></option>' );
@@ -46,6 +47,8 @@ define([
         // $("#oa").append(elem);
         // $("#header").append(elem);
         // $("#footer").append(elem);
+
+        $("#CardNumber").append(elem);
         $("#Params1").append(elem);
         $("#Params2").append(elem);
         $("#Params3").append(elem);
@@ -178,11 +181,12 @@ define([
         "user":$("#user option:Selected").val(),
         "CardNumber":$("#CardNumber option:Selected").val(),
         "message": $("#message").val(),
+        "entityid": $("#entityid").val(),
+        
         "TEMP_ID": $("#TEMP_ID").val(),
         "Campaignname": $("#Campaignname").val(),
         "campaignTag": $("#campaignTag").val(),
         "FROM": $("#FROM").val(),
-        "entityid": $("#entityid").val(),
 
         "Params1": "{{"+$("#Params1 option:selected" ).val()+"}}",
         "Params2": "{{"+$("#Params2 option:selected" ).val()+"}}",
@@ -193,6 +197,8 @@ define([
         "Params7": "{{"+$("#Params7 option:selected" ).val()+"}}",
         "Params8": "{{"+$("#Params8 option:selected" ).val()+"}}",
         "Params9": "{{"+$("#Params9 option:selected" ).val()+"}}",
+        
+
         
 
 	}];

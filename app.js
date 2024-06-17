@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 // Module Dependencies
 // -------------------
 var express     = require('express');
@@ -194,11 +194,6 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 		smsgid=smsgid.replace("#Params9",bodyJason.Params9);
 	}
 	
-	
-	logger.info('From:'+bodyJason.FROM);
-	logger.info('msisdn:'+bodyJason.msisdn);
-				logger.info('smsgid:'+smsgid);
-
 				var userAcc = config.get("Creds");
 				for (var i = 0; i < userAcc.length; i++) {
 				  if (userAcc[i]["user"] == bodyJason.user) {
@@ -214,9 +209,12 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 					user=bodyJason.user;
 				}
 
-				logger.info('Password:'+Password);
-				logger.info('message:'+message);
-				logger.info('user:'+user);
+				let date_time = new Date();
+				let date = ("0" + date_time.getDate()).slice(-2);
+				let month = ("0" + (date_time.getMonth() + 1)).slice(-2);
+				let year = date_time.getFullYear();
+				
+				logger.info('Date:'+year + "-" + month + "-" + date);
 
 				bodyJasonNew= config.get('SMSText.SMSTextmessage');
 				bodyJasonNew=bodyJasonNew.replace("#USERNAME",user).replace("#PASSWORD",Password).replace("#from",FROM)
@@ -327,7 +325,7 @@ app.post('/ics/execute', (req, res) => {
 				var msisdn=MobileNumber;			
 				var Password;				
 			    var user1;
-				var smsgid;
+				var smsgid="ICS_TEST";
 
 
 				var message=JSON.stringify(decodedArgs.message).substring(1, JSON.stringify(decodedArgs.message).length - 1);
@@ -363,7 +361,7 @@ app.post('/ics/execute', (req, res) => {
 		}
 
 		
-	if(message.includes("#Params1"))
+	    if(message.includes("#Params1"))
 		{
 			message=message.replace("#Params1",Params1);
 		}
@@ -436,9 +434,7 @@ app.post('/ics/execute', (req, res) => {
 		{
 			smsgid=smsgid.replace("#Params9",Params9);
 		}
-		
-
-		
+			
 		var userAcc = config.get("Creds");
 		for (var i = 0; i < userAcc.length; i++) {
 		  if (userAcc[i]["user"] == user) {
@@ -453,18 +449,24 @@ app.post('/ics/execute', (req, res) => {
 		{
 			user1=user;
 		}
-		// var message1=message.replace(/\n/g, '')
+		 var message1=message.replace(/\n/g, '')
 
-		// var message2= JSON.stringify(JSON.parse(message))
+	     var message2= JSON.stringify(JSON.parse(message))
 
-		 logger.info('user1:'+user1);
-		logger.info('Password1:'+Password);
-		logger.info('From1:'+FROM);
-		logger.info('msisdn1:'+MobileNumber);
-		logger.info('smsgid1:'+smsgid);
-		logger.info('message:'+message);
-		//logger.info('message:'+message1);
-		//logger.info('message:'+message2);
+		  logger.info('user1:'+user1);
+		 logger.info('Password1:'+Password);
+		 logger.info('From1:'+FROM);
+		 logger.info('msisdn1:'+MobileNumber);
+		 logger.info('smsgid1:'+smsgid);
+		 logger.info('message:'+message);
+		logger.info('message:'+message1);
+		logger.info('message:'+message2);
+		let date_time = new Date();
+		let date = ("0" + date_time.getDate()).slice(-2);
+		let month = ("0" + (date_time.getMonth() + 1)).slice(-2);
+		let year = date_time.getFullYear();		
+		logger.info('Date:'+year + "-" + month + "-" + date);
+
 
 		bodyJason= config.get('SMSText.SMSTextmessage');
 		bodyJason=bodyJason.replace("#USERNAME",user1).replace("#PASSWORD",Password).replace("#from",FROM)
@@ -484,49 +486,20 @@ app.post('/ics/execute', (req, res) => {
 			'url': ApiUrl
 			};
 
-			logger.info('options:'+JSON.stringify(options));
+			// request(options, function (error, response) { 
+			// 	if (error) {
+			// 		logger.info('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Error:"+JSON.stringify(error) );
+			// 			if(process.env.debug =='Y')
+			// 			logger.info	('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Error:"+JSON.stringify(error) );
+			// 		}
+			// 		else{
+			// 			logger.info('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Response:"+JSON.stringify(response.body));
+			// 				if(process.env.debug =='Y')
+			// 				logger.info	('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Response:"+JSON.stringify(response.body));
+			// 			}
+					
+			// 		});
 
-			request(options, function (error, response) {
-				if (error) {
-				  logger.info(
-					"Date:" +
-					  Date() +
-					  " MobileNumber:" +
-					  msisdn +
-					  " Error:" +
-					  JSON.stringify(error)
-				  );
-				  if (process.env.debug == "Y")
-					logger.info(
-					  "Date:" +
-						Date() +
-						" MobileNumber:" +
-						msisdn +
-						" Error:" +
-						JSON.stringify(error)
-					);
-				  res.send(400, error);
-				} else {
-				  logger.info(
-					"Date:" +
-					  Date() +
-					  " MobileNumber:" +
-					  msisdn +
-					  " Response:" +
-					  JSON.stringify(response.body)
-				  );
-				  if (process.env.debug == "Y")
-					logger.info(
-					  "Date:" +
-						Date() +
-						" MobileNumber:" +
-						msisdn +
-						" Response:" +
-						JSON.stringify(response.body)
-					);
-				  res.send(200, response);
-				}
-			  });
 	   }			
             res.send(200, 'Execute');
         } 			
