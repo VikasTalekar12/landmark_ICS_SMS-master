@@ -278,10 +278,8 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 				logger.error(e)
 			}
 } );
-
 app.post('/login', routes.login );
 app.post('/logout', routes.logout );
-
 // Custom Hello World Activity Routes
 app.post('/ics/save', (req, res) => {
 	res.send(200, 'Save');
@@ -291,21 +289,19 @@ app.post('/ics/validate', (req, res) => {
 	res.send(200, 'Validate');
 }
  );
-
 app.post('/ics/publish',  (req, res) => { 
 	res.send(200, 'Publish');
 }
  );
-
  app.post('/ics/testPublish',  (req, res) => { 
 	res.send(200, 'Publish');
 }
  );
-
 //app.post('/journeybuilder/execute/', activity.execute );
-
 app.post('/ics/execute', (req, res) => {
     // example on how to decode JWT
+	logger.info("jwtSecret1: "+JSON.stringify(process.env.jwtSecret));
+
 	try{
 
 		JWT(req.body, process.env.jwtSecret, (err, decoded) => { 
@@ -322,11 +318,11 @@ app.post('/ics/execute', (req, res) => {
 			logger.info("Raw data: "+JSON.stringify(decodedArgs));
 		var MobileNumber=JSON.stringify(decodedArgs.MobileNumber).substring(1, JSON.stringify(decodedArgs.MobileNumber).length - 1);
 		
+
 				var msisdn=MobileNumber;			
 				var Password;				
 			    var user1;
 				var smsgid="ICS_TEST";
-
 
 				var message=JSON.stringify(decodedArgs.message).substring(1, JSON.stringify(decodedArgs.message).length - 1);
 				var TEMP_ID=JSON.stringify(decodedArgs.TEMP_ID).substring(1, JSON.stringify(decodedArgs.TEMP_ID).length - 1);
@@ -449,18 +445,13 @@ app.post('/ics/execute', (req, res) => {
 		{
 			user1=user;
 		}
-		 var message1=message.replace(/\n/g, '')
-
-	     var message2= JSON.stringify(JSON.parse(message))
-
+		
 		  logger.info('user1:'+user1);
 		 logger.info('Password1:'+Password);
 		 logger.info('From1:'+FROM);
 		 logger.info('msisdn1:'+MobileNumber);
 		 logger.info('smsgid1:'+smsgid);
 		 logger.info('message:'+message);
-		logger.info('message:'+message1);
-		logger.info('message:'+message2);
 		let date_time = new Date();
 		let date = ("0" + date_time.getDate()).slice(-2);
 		let month = ("0" + (date_time.getMonth() + 1)).slice(-2);
@@ -486,19 +477,19 @@ app.post('/ics/execute', (req, res) => {
 			'url': ApiUrl
 			};
 
-			// request(options, function (error, response) { 
-			// 	if (error) {
-			// 		logger.info('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Error:"+JSON.stringify(error) );
-			// 			if(process.env.debug =='Y')
-			// 			logger.info	('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Error:"+JSON.stringify(error) );
-			// 		}
-			// 		else{
-			// 			logger.info('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Response:"+JSON.stringify(response.body));
-			// 				if(process.env.debug =='Y')
-			// 				logger.info	('Date:'+ Date()+" MobileNumber:"+MobileNumber+" Response:"+JSON.stringify(response.body));
-			// 			}
+			 request(options, function (error, response) { 
+			 	if (error) {
+			 		logger.info('Date1:'+ Date()+" MobileNumber:"+MobileNumber+" Error:"+JSON.stringify(error) );
+			 			if(process.env.debug =='Y')
+			 			logger.info	('Date2:'+ Date()+" MobileNumber:"+MobileNumber+" Error:"+JSON.stringify(error) );
+			 		}
+			 		else{
+			 			logger.info('Date3:'+ Date()+" MobileNumber:"+MobileNumber+" Response:"+JSON.stringify(response.body));
+			 				if(process.env.debug =='Y')
+			 				logger.info	('Date4:'+ Date()+" MobileNumber:"+MobileNumber+" Response:"+JSON.stringify(response.body));
+			 			}
 					
-			// 		});
+			 		});
 
 	   }			
             res.send(200, 'Execute');
@@ -512,7 +503,8 @@ app.post('/ics/execute', (req, res) => {
 	});}
 	catch (err)
 	{
-		logger.error('Date'+ Date()+ 'Error '+JSON.stringify(err) );
+		logger.info('jwtSecret1: '+process.env.jwtSecret);
+		logger.error('Date1'+ Date()+ 'Error '+JSON.stringify(err) );
 		return res.status(401).end();
 	}
 
@@ -521,4 +513,5 @@ app.post('/ics/execute', (req, res) => {
 var server = http.createServer(null, app); 
 server.listen(app.get('port'), function(){
 	logger.info('Express server listening on port ' + app.get('port'));
+
   });

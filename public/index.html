@@ -107,22 +107,31 @@
         <td>Target Fields  </td>
         <td>Source Fields</td>
       </tr>
+      <tr id="trChannel">
+        <td>Channel : </td>
+        <td>
+          <select id="channel">
+            <option value="SMS">SMS</option>
+          </select>
+        </td>
+      </tr>
       <tr id="trVender">
         <td>Vender : </td>
         <td>
-          <select id="channel">
-            <option value="ICS_SMS">ICS_SMS</option>
-            <option value="Karix_SMS">Karix_SMS</option>
+          <select id="Vender">
+            <option value="ICS">ICS</option>
+            <option value="Karix">Karix</option>
           </select>
         </td>
       </tr>
 <tr>
-  <tr id="trMSG_Type">
+  <tr id="trMSG_medium">
     <td>Type : </td>
     <td>
-      <select id="MSG_Type">
-        <option value="Promotional">Promotional</option>
-        <option value="Transactional">Transactional</option>
+      <select id="MSG_medium">
+        <option value="Online">Online</option>
+        <option value="Offline">Offline</option>
+        <option value="Omni">Omni</option>
       </select>
     </td>
   </tr>
@@ -199,6 +208,57 @@
       <td><select  id="CardNumber">
       </select> </td>
       </tr>
+      <tr id="trcampStartdate">
+        <td>CampaignStartDate : </td>
+        <td>
+          <input type="date" name="date" id="date">
+       </td>
+        </tr>             
+      <tr id="trcampEnddate">
+        <td>CampaignEndDate : </td>
+        <td>
+          <input type="date" name="date" id="date">
+       </td>
+        </tr>
+  
+        <tr id="trTag1">
+          <td>Tag1 : </td>
+          <td>
+            <input id="Tag1" type="text" />
+          </td>
+        </tr>
+
+
+        <tr id="trTag2">
+          <td>Tag2 : </td>
+          <td>
+            <input id="Tag2" type="text" />
+          </td>
+        </tr>
+
+        
+        <tr id="trTag3">
+          <td>Tag3 : </td>
+          <td>
+            <input id="Tag3" type="text" />
+          </td>
+        </tr>
+
+        
+        <tr id="trTag4">
+          <td>Tag4 : </td>
+          <td>
+            <input id="Tag4" type="text" />
+          </td>
+        </tr>
+
+        <tr id="trTag5">
+          <td>Tag5 : </td>
+          <td>
+            <input id="Tag5" type="text" />
+          </td>
+        </tr>
+
     </table>
     
   </div>

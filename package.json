@@ -37,8 +37,6 @@
     "helmet": "^7.0.0",
     "jsonwebtoken": "8.0.1",
     "log4js": "6.6.1",
-    "newrelic": "9.7.0",
-    "node-cache": "5.1.2",
     "nodemailer": "6.4.6",
     "request": "2.81.0",
     "require": "0.4.4",
