@@ -3,7 +3,16 @@ define([
 ], function (
     Postmonger
 ) {
-    "use strict";
+    
+var showBrowserButtonNavigationWarning = true;
+
+function allowBrowserButtonNavigation(event) {
+    showBrowserButtonNavigationWarning = false;
+}
+
+function blockBrowserButtonNavigation() {
+    showBrowserButtonNavigationWarning = true;
+}
     console.log('Fisrt Start: ');
     var connection = new Postmonger.Session();
     var authTokens = {};
@@ -33,6 +42,8 @@ define([
         $("#Params7").append('<option></option>' );
         $("#Params8").append('<option></option>' );
         $("#Params9").append('<option></option>' );
+
+        
       
 
         for( var i =0 ; i < data['schema'].length; i++)
@@ -177,16 +188,27 @@ define([
 	   payload['arguments'].execute.inArguments = [{
 		   
         "MobileNumber": "{{"+$("#MobileNumber option:selected" ).val()+"}}",
-        
-        "user":$("#user option:Selected").val(),
-        "CardNumber":$("#CardNumber option:Selected").val(),
-        "message": $("#message").val(),
-        "entityid": $("#entityid").val(),
-        
-        "TEMP_ID": $("#TEMP_ID").val(),
-        "Campaignname": $("#Campaignname").val(),
-        "campaignTag": $("#campaignTag").val(),
-        "FROM": $("#FROM").val(),
+
+               "channel":$("#channel option:Selected").val(),
+                "Vender":$("#Vender option:Selected").val(),
+                "MSG_medium":$("#MSG_medium option:Selected").val(),
+                "user":$("#user option:Selected").val(),
+            
+                "TEMP_ID": $("#TEMP_ID").val(),
+                "entityid": $("#entityid").val(),
+                "FROM": $("#FROM").val(),
+                "message": $("#message").val(),
+                "Textcount": $("#Textcount").val(),
+                "Campaignname": $("#Campaignname").val(),
+                "campaignTag": $("#campaignTag").val(),
+                "CardNumber":$("#CardNumber option:Selected").val(),
+                "s_date": $("#s_date").val(),
+                "e_date": $("#e_date").val(),
+                "Tag1": $("#Tag1").val(),
+                "Tag2": $("#Tag2").val(),
+                "Tag3": $("#Tag3").val(),
+                "Tag4": $("#Tag4").val(),
+                "Tag5": $("#Tag5").val(),
 
         "Params1": "{{"+$("#Params1 option:selected" ).val()+"}}",
         "Params2": "{{"+$("#Params2 option:selected" ).val()+"}}",

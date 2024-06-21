@@ -1,5 +1,12 @@
-'use strict';
+var showBrowserButtonNavigationWarning = true;
 
+function allowBrowserButtonNavigation(event) {
+    showBrowserButtonNavigationWarning = false;
+}
+
+function blockBrowserButtonNavigation() {
+    showBrowserButtonNavigationWarning = true;
+}
 // Deps
 var activity = require('./activity');
 

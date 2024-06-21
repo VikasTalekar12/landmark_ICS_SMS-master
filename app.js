@@ -1,6 +1,20 @@
-"use strict";
 // Module Dependencies
 // -------------------
+
+/* eslint-disable javascript:S3504 */
+
+var showBrowserButtonNavigationWarning = true;
+
+function allowBrowserButtonNavigation(event) {
+    showBrowserButtonNavigationWarning = false;
+}
+
+function blockBrowserButtonNavigation() {
+    showBrowserButtonNavigationWarning = true;
+}
+
+/* eslint-enable javascript:S3504 */  // Optionally, you can enable it again if needed
+
 var express     = require('express');
 var bodyParser  = require('body-parser');
 var errorhandler = require('errorhandler');
@@ -110,15 +124,25 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 	var ApiUrl=config.get('SMSText.url');		
 	var Password;				
 	var bodyJasonNew;
-	var smsgid="ICS_TEST";
-	var message=bodyJason.message;	
-	var FROM=bodyJason.FROM;	
-	var msisdn=bodyJason.msisdn	
+
+	var channel=bodyJason.channel;
+	var Vender=bodyJason.Vender;
+	var MSG_medium=bodyJason.MSG_medium;
 	var user;
-	var entityid=bodyJason.entityid;
 	var TEMP_ID=bodyJason.TEMP_ID;
+	var FROM=bodyJason.FROM;	
+	var entityid=bodyJason.entityid;
+	var message=bodyJason.message;	
+	var Textcount=bodyJason.Textcount;
 	var Campaignname=bodyJason.Campaignname;
 	var campaignTag=bodyJason.campaignTag;  
+	var CardNumber=bodyJason.CardNumber;  
+	var msisdn=bodyJason.msisdn	
+	var s_date=bodyJason.s_date	
+	var e_date=bodyJason.e_date	
+
+	var smsgid=MobileNumber+"$"+message+"$"+user+"$"+CardNumber+"$"+Campaignname+"$"+campaignTag+"$"+channel+"$"+MSG_medium+"$"+s_date+"$"+e_date;
+
 
 	if(message.includes("#Params1"))
 	{
@@ -238,7 +262,7 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 						  " Error:" +
 						  JSON.stringify(error)
 					  );
-					  if (process.env.debug == "Y")
+					  if (process.env.debug == "Y"){
 						logger.info(
 						  "Date:" +
 							Date() +
@@ -247,6 +271,7 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 							" Error:" +
 							JSON.stringify(error)
 						);
+					}
 					  res.send(400, error);
 					} else {
 					  logger.info(
@@ -322,16 +347,24 @@ app.post('/ics/execute', (req, res) => {
 				var msisdn=MobileNumber;			
 				var Password;				
 			    var user1;
-				var smsgid="ICS_TEST";
 
-				var message=JSON.stringify(decodedArgs.message).substring(1, JSON.stringify(decodedArgs.message).length - 1);
+				var channel=JSON.stringify(decodedArgs.channel).substring(1, JSON.stringify(decodedArgs.channel).length - 1);
+				var Vender=JSON.stringify(decodedArgs.Vender).substring(1, JSON.stringify(decodedArgs.Vender).length - 1);
+				var MSG_medium=JSON.stringify(decodedArgs.MSG_medium).substring(1, JSON.stringify(decodedArgs.MSG_medium).length - 1);
+				var user=JSON.stringify(decodedArgs.user).substring(1, JSON.stringify(decodedArgs.user).length - 1);
 				var TEMP_ID=JSON.stringify(decodedArgs.TEMP_ID).substring(1, JSON.stringify(decodedArgs.TEMP_ID).length - 1);
 				var FROM=JSON.stringify(decodedArgs.FROM).substring(1, JSON.stringify(decodedArgs.FROM).length - 1);
-				var user=JSON.stringify(decodedArgs.user).substring(1, JSON.stringify(decodedArgs.user).length - 1);
 				var entityid=JSON.stringify(decodedArgs.entityid).substring(1, JSON.stringify(decodedArgs.entityid).length - 1);
+				var message=JSON.stringify(decodedArgs.message).substring(1, JSON.stringify(decodedArgs.message).length - 1);
+				var Textcount=JSON.stringify(decodedArgs.Textcount).substring(1, JSON.stringify(decodedArgs.Textcount).length - 1);
 				var Campaignname=JSON.stringify(decodedArgs.Campaignname).substring(1, JSON.stringify(decodedArgs.Campaignname).length - 1);
 				var campaignTag=JSON.stringify(decodedArgs.campaignTag).substring(1, JSON.stringify(decodedArgs.campaignTag).length - 1);
-							
+				var CardNumber=JSON.stringify(decodedArgs.CardNumber).substring(1, JSON.stringify(decodedArgs.CardNumber).length - 1);
+				var s_date=JSON.stringify(decodedArgs.s_date).substring(1, JSON.stringify(decodedArgs.s_date).length - 1);
+				var e_date=JSON.stringify(decodedArgs.e_date).substring(1, JSON.stringify(decodedArgs.e_date).length - 1);
+
+				var smsgid=MobileNumber+"$"+message+"$"+user+"$"+CardNumber+"$"+Campaignname+"$"+campaignTag+"$"+channel+"$"+MSG_medium+"$"+s_date+"$"+e_date;
+
 				var Params1=JSON.stringify(decodedArgs.Params1).substring(1, JSON.stringify(decodedArgs.Params1).length - 1);
 				var Params2=JSON.stringify(decodedArgs.Params2).substring(1, JSON.stringify(decodedArgs.Params2).length - 1);
 				var Params3=JSON.stringify(decodedArgs.Params3).substring(1, JSON.stringify(decodedArgs.Params3).length - 1);
@@ -446,12 +479,6 @@ app.post('/ics/execute', (req, res) => {
 			user1=user;
 		}
 		
-		  logger.info('user1:'+user1);
-		 logger.info('Password1:'+Password);
-		 logger.info('From1:'+FROM);
-		 logger.info('msisdn1:'+MobileNumber);
-		 logger.info('smsgid1:'+smsgid);
-		 logger.info('message:'+message);
 		let date_time = new Date();
 		let date = ("0" + date_time.getDate()).slice(-2);
 		let month = ("0" + (date_time.getMonth() + 1)).slice(-2);
@@ -477,21 +504,52 @@ app.post('/ics/execute', (req, res) => {
 			'url': ApiUrl
 			};
 
-			 request(options, function (error, response) { 
-			 	if (error) {
-			 		logger.info('Date1:'+ Date()+" MobileNumber:"+MobileNumber+" Error:"+JSON.stringify(error) );
-			 			if(process.env.debug =='Y')
-			 			logger.info	('Date2:'+ Date()+" MobileNumber:"+MobileNumber+" Error:"+JSON.stringify(error) );
-			 		}
-			 		else{
-			 			logger.info('Date3:'+ Date()+" MobileNumber:"+MobileNumber+" Response:"+JSON.stringify(response.body));
-			 				if(process.env.debug =='Y')
-			 				logger.info	('Date4:'+ Date()+" MobileNumber:"+MobileNumber+" Response:"+JSON.stringify(response.body));
-			 			}
-					
-			 		});
-
-	   }			
+			request(options, function (error, response) {
+				if (error) {
+				  logger.info(
+					"Date:" +
+					  Date() +
+					  " MobileNumber:" +
+					  bodyJason.msisdn +
+					  " Error:" +
+					  JSON.stringify(error)
+				  );
+				  if (process.env.debug == "Y"){
+					logger.info(
+					  "Date:" +
+						Date() +
+						" MobileNumber:" +
+						bodyJason.msisdn +
+						" Error:" +
+						JSON.stringify(error)
+					);
+				}
+				  res.send(400, error);
+				} else {
+				  logger.info(
+					"Date:" +
+					  Date() +
+					  " MobileNumber:" +
+					  bodyJason.msisdn +
+					  " Response:" +
+					  JSON.stringify(response.body)
+				  );
+				  if (process.env.debug == "Y")
+					logger.info(
+					  "Date:" +
+						Date() +
+						" MobileNumber:" +
+						bodyJason.msisdn +
+						" Response:" +
+						JSON.stringify(response.body)
+					);
+				  res.send(200, response);
+				}
+			  });
+			
+		
+			
+		}			
             res.send(200, 'Execute');
         } 			
 		else {
