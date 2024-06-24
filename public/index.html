@@ -194,7 +194,7 @@
       <tr id="trcampaignTag">
         <td>Campaign Tag : </td>
         <td>
-          <input id="CampaignTag" type="text" />
+          <input id="campaignTag" type="text" />
         </td>
       </tr>
 
@@ -206,18 +206,19 @@
     <tr id="trCardnumber">
       <td>Card Number : </td>
       <td><select  id="CardNumber">
+        <option>90825518</option>
       </select> </td>
       </tr>
       <tr id="trcampStartdate">
         <td>CampaignStartDate : </td>
         <td>
-          <input type="date" name="date" id="s_date">
+          <input type="date" name="s_date" id="s_date">
        </td>
         </tr>             
       <tr id="trcampEnddate">
         <td>CampaignEndDate : </td>
         <td>
-          <input type="date" name="date" id="e_date">
+          <input type="date" name="e_date" id="e_date">
        </td>
         </tr>
   
@@ -266,13 +267,13 @@
     <table  class="gfg" id="tblMsgDetails" style="display: block;" aria-label="form content">
       <tr id="trHeader" align="left">
         <th>Params</th>
+        <th>Type</th>
         <th>Value </th>
       </tr>
       <tr id="trParams1">
         <td>Parameter 1 : </td>
         <td>
           <select  id="Params1">
-            <option>Vikas</option>
            </select>
         </td>
       </tr>
@@ -500,30 +501,24 @@ function changeOtherSelect(value){
                 "Params7":$("#Params7 option:selected" ).val(),
                 "Params8":$("#Params8 option:selected" ).val(),
                 "Params9":$("#Params9 option:selected" ).val(),
-
-
-                "channel":$("#channel option:Selected").val(),
-                "Vender":$("#Vender option:Selected").val(),
-                "MSG_medium":$("#MSG_medium option:Selected").val(),
-                "user":$("#user option:Selected").val(),
                 
-                "TEMP_ID": $("#TEMP_ID").val(),
-                "entityid": $("#entityid").val(),
-                "FROM": $("#FROM").val(),
-                "message": $("#message").val(),
-                "Textcount": $("#Textcount").val(),
-                "Campaignname": $("#Campaignname").val(),
-                "campaignTag": $("#campaignTag").val(),
+                "channel":$("#channel option:Selected").val(),
+                "MSG_medium":$("#MSG_medium option:Selected").val(),
+                
+                "user":$("#user option:Selected").val(),
                 "CardNumber":$("#CardNumber option:Selected").val(),
+                "message": $("#message").val(),
+                "entityid": $("#entityid").val(),
                 "s_date": $("#s_date").val(),
                 "e_date": $("#e_date").val(),
-                "Tag1": $("#Tag1").val(),
-                "Tag2": $("#Tag2").val(),
-                "Tag3": $("#Tag3").val(),
-                "Tag4": $("#Tag4").val(),
-                "Tag5": $("#Tag5").val(),
 
-
+                
+                
+                "TEMP_ID": $("#TEMP_ID").val(),
+                "Campaignname": $("#Campaignname").val(),
+                "campaignTag": $("#campaignTag").val(),
+                "FROM": $("#FROM").val(),
+                
                 };
               
               $("#trtestResult").show();

@@ -124,26 +124,21 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 	var ApiUrl=config.get('SMSText.url');		
 	var Password;				
 	var bodyJasonNew;
-
-	var channel=bodyJason.channel;
-	var Vender=bodyJason.Vender;
-	var MSG_medium=bodyJason.MSG_medium;
-	var user;
-	var TEMP_ID=bodyJason.TEMP_ID;
-	var FROM=bodyJason.FROM;	
-	var entityid=bodyJason.entityid;
 	var message=bodyJason.message;	
-	var Textcount=bodyJason.Textcount;
+	var FROM=bodyJason.FROM;	
+	var msisdn=bodyJason.msisdn	
+	var user;
+	var entityid=bodyJason.entityid;
+	var TEMP_ID=bodyJason.TEMP_ID;
 	var Campaignname=bodyJason.Campaignname;
 	var campaignTag=bodyJason.campaignTag;  
-	var CardNumber=bodyJason.CardNumber;  
-	var msisdn=bodyJason.msisdn	
-	var s_date=bodyJason.s_date	
-	var e_date=bodyJason.e_date	
+	var CardNumber=bodyJason.CardNumber;
+	var channel=bodyJason.channel;
+	var s_date=bodyJason.s_date;
+	var e_date=bodyJason.e_date;
 
-	var smsgid=MobileNumber+"$"+message+"$"+user+"$"+CardNumber+"$"+Campaignname+"$"+campaignTag+"$"+channel+"$"+MSG_medium+"$"+s_date+"$"+e_date;
-
-
+	var smsgid=msisdn+"$"+message+"$"+FROM+"$"+CardNumber+"$"+Campaignname+"$"+campaignTag+"$"+channel+"$"+s_date+"$"+e_date;
+	
 	if(message.includes("#Params1"))
 	{
 		message=message.replace("#Params1",bodyJason.Params1);
@@ -232,6 +227,8 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 				{
 					user=bodyJason.user;
 				}
+
+
 
 				let date_time = new Date();
 				let date = ("0" + date_time.getDate()).slice(-2);
@@ -343,27 +340,21 @@ app.post('/ics/execute', (req, res) => {
 			logger.info("Raw data: "+JSON.stringify(decodedArgs));
 		var MobileNumber=JSON.stringify(decodedArgs.MobileNumber).substring(1, JSON.stringify(decodedArgs.MobileNumber).length - 1);
 		
-
 				var msisdn=MobileNumber;			
 				var Password;				
 			    var user1;
 
-				var channel=JSON.stringify(decodedArgs.channel).substring(1, JSON.stringify(decodedArgs.channel).length - 1);
-				var Vender=JSON.stringify(decodedArgs.Vender).substring(1, JSON.stringify(decodedArgs.Vender).length - 1);
-				var MSG_medium=JSON.stringify(decodedArgs.MSG_medium).substring(1, JSON.stringify(decodedArgs.MSG_medium).length - 1);
-				var user=JSON.stringify(decodedArgs.user).substring(1, JSON.stringify(decodedArgs.user).length - 1);
+				var message=JSON.stringify(decodedArgs.message).substring(1, JSON.stringify(decodedArgs.message).length - 1);
 				var TEMP_ID=JSON.stringify(decodedArgs.TEMP_ID).substring(1, JSON.stringify(decodedArgs.TEMP_ID).length - 1);
 				var FROM=JSON.stringify(decodedArgs.FROM).substring(1, JSON.stringify(decodedArgs.FROM).length - 1);
+				var user=JSON.stringify(decodedArgs.user).substring(1, JSON.stringify(decodedArgs.user).length - 1);
 				var entityid=JSON.stringify(decodedArgs.entityid).substring(1, JSON.stringify(decodedArgs.entityid).length - 1);
-				var message=JSON.stringify(decodedArgs.message).substring(1, JSON.stringify(decodedArgs.message).length - 1);
-				var Textcount=JSON.stringify(decodedArgs.Textcount).substring(1, JSON.stringify(decodedArgs.Textcount).length - 1);
+				var CardNumber=JSON.stringify(decodedArgs.CardNumber).substring(1, JSON.stringify(decodedArgs.CardNumber).length - 1);
 				var Campaignname=JSON.stringify(decodedArgs.Campaignname).substring(1, JSON.stringify(decodedArgs.Campaignname).length - 1);
 				var campaignTag=JSON.stringify(decodedArgs.campaignTag).substring(1, JSON.stringify(decodedArgs.campaignTag).length - 1);
-				var CardNumber=JSON.stringify(decodedArgs.CardNumber).substring(1, JSON.stringify(decodedArgs.CardNumber).length - 1);
+				var channel=JSON.stringify(decodedArgs.channel).substring(1, JSON.stringify(decodedArgs.channel).length - 1);
 				var s_date=JSON.stringify(decodedArgs.s_date).substring(1, JSON.stringify(decodedArgs.s_date).length - 1);
 				var e_date=JSON.stringify(decodedArgs.e_date).substring(1, JSON.stringify(decodedArgs.e_date).length - 1);
-
-				var smsgid=MobileNumber+"$"+message+"$"+user+"$"+CardNumber+"$"+Campaignname+"$"+campaignTag+"$"+channel+"$"+MSG_medium+"$"+s_date+"$"+e_date;
 
 				var Params1=JSON.stringify(decodedArgs.Params1).substring(1, JSON.stringify(decodedArgs.Params1).length - 1);
 				var Params2=JSON.stringify(decodedArgs.Params2).substring(1, JSON.stringify(decodedArgs.Params2).length - 1);
@@ -375,6 +366,9 @@ app.post('/ics/execute', (req, res) => {
 				var Params8=JSON.stringify(decodedArgs.Params8).substring(1, JSON.stringify(decodedArgs.Params8).length - 1);
 				var Params9=JSON.stringify(decodedArgs.Params9).substring(1, JSON.stringify(decodedArgs.Params9).length - 1);				
 				
+	
+				var smsgid=MobileNumber+"$"+message+"$"+FROM+"$"+CardNumber+"$"+Campaignname+"$"+campaignTag+"$"+channel+"$"+s_date+"$"+e_date;
+
 				if(JSON.stringify(decodedArgs.MobileNumber).length == 2){
 					logger.info(' mobile is empty');
 			}
