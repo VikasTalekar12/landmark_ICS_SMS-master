@@ -3,6 +3,10 @@
         "url":"https://sms.sendmsg.in/datasend",
         "SMSTextmessage":"{\"user\":\"#USERNAME\",\"pass\":\"#PASSWORD\",\"smstosend\":[{\"from\":\"#from\",\"to\":\"#to\",\"smstext\":\"#message\",\"smsgid\":\"#smsgid\"}]}"
     },
+    "KarixSMSText":{
+        "karixurl":"https://japi.instaalerts.zone/httpapi/JsonReceiver",
+        "karixSMSTextmessage":"{\"ver\":\"#ver\",\"key\":\"#key\",\"encrypt\":\"#encrypt\",\"messages\":[{\"dest\":[\"#to\"],\"text\":\"#message\",\"send\":\"#from\",\"type\":\"#medium\",\"tag4\":\"#smsgid\"}]}"
+    },
     "Creds":[
         {"user":"Lifestyle","password":"mKL3nskkv"},
         {"user":"Maxfashion","password":"z9RpjQ9Z2"},

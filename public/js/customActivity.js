@@ -189,13 +189,19 @@ function blockBrowserButtonNavigation() {
 
         "channel":$("#channel option:Selected").val(),
         "MSG_medium":$("#MSG_medium option:Selected").val(),
-        
+        "Vender":$("#Vender option:Selected").val(),
         "user":$("#user option:Selected").val(),
         "CardNumber":$("#CardNumber option:Selected").val(),
         "message": $("#message").val(),
         "entityid": $("#entityid").val(),
         "s_date": $("#s_date").val(),
         "e_date": $("#e_date").val(),
+        
+        "Tag1": $("#Tag1").val(),
+        "Tag2": $("#Tag2").val(),
+        "Tag3": $("#Tag3").val(),
+        "Tag4": $("#Tag4").val(),
+        "Tag5": $("#Tag5").val(),
         
         "TEMP_ID": $("#TEMP_ID").val(),
         "Campaignname": $("#Campaignname").val(),

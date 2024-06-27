@@ -19,8 +19,6 @@ var http = require('https');
 // let Client = require('ssh2-sftp-client');
 // let sftp = new Client();
 
-var AWS = require('aws-sdk');
-
 exports.logExecuteData = [];
 
 function logData(req) {

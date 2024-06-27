@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/devsutd/journey-builder-activity-template#readme",
   "dependencies": {
-    "aws-sdk": "2.630.0",
     "body-parser": "1.18.2",
     "bower": "1.8.0",
     "config": "3.3.7",
