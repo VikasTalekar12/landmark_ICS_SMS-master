@@ -1,7 +1,9 @@
 {
     "SMSText":{
         "url":"https://sms.sendmsg.in/datasend",
-        "SMSTextmessage":"{\"user\":\"#USERNAME\",\"pass\":\"#PASSWORD\",\"smstosend\":[{\"from\":\"#from\",\"to\":\"#to\",\"smstext\":\"#message\",\"smsgid\":\"#smsgid\"}]}"
+        "SMSTextmessage":"{\"user\":\"#USERNAME\",\"pass\":\"#PASSWORD\",\"smstosend\":[{\"from\":\"#from\",\"to\":\"#to\",\"smstext\":\"#message\",\"smsgid\":\"#smsgid\"}]}",
+        "icsdlr":"https://domain-name/sms/dlr/ics?"
+
     },
     "KarixSMSText":{
         "karixurl":"https://japi.instaalerts.zone/httpapi/JsonReceiver",

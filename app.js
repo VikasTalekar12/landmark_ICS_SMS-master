@@ -29,6 +29,7 @@ const fs = require('fs');
 require('dotenv').config();
 const winston = require('winston');
 require('winston-daily-rotate-file');
+const sqlite3 = require('sqlite3').verbose();
 
 
 var logConfiguration = new winston.transports.DailyRotateFile({
@@ -191,9 +192,15 @@ app.post('/ics/SendTest',jsonParser, (req, res) => {
 		message=message.replace("#Params9",bodyJason.Params9);
 	}
 
+	if(vender=="ICS")
+		{
 	var smsgid=msisdn+"$"+message+"$"+FROM+"$"+CardNumber+"$"+Campaignname+"$"+campaignTag+"$"+channel+"$"+medium+"$"+s_date+"$"+e_date+"$"+vender+"$"+user+"$"+Tag1+"$"+Tag2+"$"+Tag3+"$"+Tag4+"$"+Tag5;
 
-	
+		}
+		else{
+			var smsgid=msisdn+"|"+message+"|"+FROM+"|"+CardNumber+"|"+Campaignname+"|"+campaignTag+"|"+channel+"|"+medium+"|"+s_date+"|"+e_date+"|"+vender+"|"+user+"|"+Tag1+"|"+Tag2+"|"+Tag3+"|"+Tag4+"|"+Tag5;
+
+		}
 				var userAcc = config.get("Creds");
 				for (var i = 0; i < userAcc.length; i++) {
 				  if (userAcc[i]["user"] == bodyJason.user) {
@@ -312,234 +319,63 @@ app.post('/ics/publish',  (req, res) => {
 }
  );
 //app.post('/journeybuilder/execute/', activity.execute );
-app.get('/ics/dlr', (req, res) => {
 
-	try{
+  app.get("/ics/dlr/:qStatus&:qMobile&:qMsgRef&:qDTime&:qNotes&:SMSMSGID", function(req, res){ 
 
-		JWT(req.body, process.env.jwtSecret, (err, decoded) => { 
+	var qStatus = req.params['qStatus'];
+	var qMobile = req.params['qMobile'];
+	var qMsgRef = req.params['qMsgRef'];
+	var qDTime = req.params['qDTime'];
+	var qNotes = req.params['qNotes'];
+	var SMSMSGID=req.params['SMSMSGID'];
 
-		var bodyJason;
-        // verification error -> unauthorized request							
-        if (err) {
-				
-				throw err;
-				
-			}
-        if (decoded && decoded.inArguments && decoded.inArguments.length > 0) {			
-		var decodedArgs = decoded.inArguments[0];
-			logger.info("Raw data: "+JSON.stringify(decodedArgs));
-		var MobileNumber=JSON.stringify(decodedArgs.MobileNumber).substring(1, JSON.stringify(decodedArgs.MobileNumber).length - 1);
-		
-				var msisdn=MobileNumber;			
-				var Password;				
-			    var user1;
+	let db = new sqlite3.Database(path.join(__dirname,'/database/landmark.db'), (err) => {
+		if (err) {
+			// Cannot open database
+			console.error(err.message)
+			throw err
+		} else {
+			console.log('Connected to the SQlite database.')
+			db.run(`CREATE TABLE Callbackdata (
+				id INTEGER PRIMARY KEY AUTOINCREMENT,
+				qStatus text,
+				qMobile text,
+				qMsgRef text,
+				qDTime text,
+				qNotes text,
+				SMSMSGID text
+				)`, (err) => {
+				if (err) {
+					// Table already created
+					var insert = 'INSERT INTO Callbackdata (qStatus, qMobile, qMsgRef, qDTime, qNotes, SMSMSGID) VALUES (?,?,?,?,?,?)'
+					db.run(insert, [qStatus,qMobile,qMsgRef,qDTime,qNotes,SMSMSGID],(err)=>{
+						if(err==null){ 
+							res.write("Data Inserted.")
+						} else { 
+							res.write(err)
 
-				var message=JSON.stringify(decodedArgs.message).substring(1, JSON.stringify(decodedArgs.message).length - 1);
-				var TEMP_ID=JSON.stringify(decodedArgs.TEMP_ID).substring(1, JSON.stringify(decodedArgs.TEMP_ID).length - 1);
-				var FROM=JSON.stringify(decodedArgs.FROM).substring(1, JSON.stringify(decodedArgs.FROM).length - 1);
-				var user=JSON.stringify(decodedArgs.user).substring(1, JSON.stringify(decodedArgs.user).length - 1);
-				var entityid=JSON.stringify(decodedArgs.entityid).substring(1, JSON.stringify(decodedArgs.entityid).length - 1);
-				var CardNumber=JSON.stringify(decodedArgs.CardNumber).substring(1, JSON.stringify(decodedArgs.CardNumber).length - 1);
-				var Campaignname=JSON.stringify(decodedArgs.Campaignname).substring(1, JSON.stringify(decodedArgs.Campaignname).length - 1);
-				var campaignTag=JSON.stringify(decodedArgs.campaignTag).substring(1, JSON.stringify(decodedArgs.campaignTag).length - 1);
-				var channel=JSON.stringify(decodedArgs.channel).substring(1, JSON.stringify(decodedArgs.channel).length - 1);
-				var s_date=JSON.stringify(decodedArgs.s_date).substring(1, JSON.stringify(decodedArgs.s_date).length - 1);
-				var e_date=JSON.stringify(decodedArgs.e_date).substring(1, JSON.stringify(decodedArgs.e_date).length - 1);
-				var medium=JSON.stringify(decodedArgs.MSG_medium).substring(1, JSON.stringify(decodedArgs.MSG_medium).length - 1);
-				var vender=JSON.stringify(decodedArgs.Vender).substring(1, JSON.stringify(decodedArgs.Vender).length - 1);
-				var Tag1=JSON.stringify(decodedArgs.Tag1).substring(1, JSON.stringify(decodedArgs.Tag1).length - 1);				
-				var Tag2=JSON.stringify(decodedArgs.Tag2).substring(1, JSON.stringify(decodedArgs.Tag2).length - 1);				
-				var Tag3=JSON.stringify(decodedArgs.Tag3).substring(1, JSON.stringify(decodedArgs.Tag3).length - 1);				
-				var Tag4=JSON.stringify(decodedArgs.Tag4).substring(1, JSON.stringify(decodedArgs.Tag4).length - 1);				
-				var Tag5=JSON.stringify(decodedArgs.Tag5).substring(1, JSON.stringify(decodedArgs.Tag5).length - 1);				
-
-				var Params1=JSON.stringify(decodedArgs.Params1).substring(1, JSON.stringify(decodedArgs.Params1).length - 1);
-				var Params2=JSON.stringify(decodedArgs.Params2).substring(1, JSON.stringify(decodedArgs.Params2).length - 1);
-				var Params3=JSON.stringify(decodedArgs.Params3).substring(1, JSON.stringify(decodedArgs.Params3).length - 1);
-				var Params4=JSON.stringify(decodedArgs.Params4).substring(1, JSON.stringify(decodedArgs.Params4).length - 1);
-				var Params5=JSON.stringify(decodedArgs.Params5).substring(1, JSON.stringify(decodedArgs.Params5).length - 1);
-				var Params6=JSON.stringify(decodedArgs.Params6).substring(1, JSON.stringify(decodedArgs.Params6).length - 1);
-				var Params7=JSON.stringify(decodedArgs.Params7).substring(1, JSON.stringify(decodedArgs.Params7).length - 1);
-				var Params8=JSON.stringify(decodedArgs.Params8).substring(1, JSON.stringify(decodedArgs.Params8).length - 1);
-				var Params9=JSON.stringify(decodedArgs.Params9).substring(1, JSON.stringify(decodedArgs.Params9).length - 1);				
-				
-	
-				if(JSON.stringify(decodedArgs.MobileNumber).length == 2){
-					logger.info(' mobile is empty');
-			}
-		   else{
-			//for WhatsApp mapping 
-			var ApiUrl;
-	      if(vender=="ICS")
-		{
-			ApiUrl=config.get('SMSText.url');
-	
-		}
-		else
-		{
-			ApiUrl=config.get('KarixSMSText.karixurl');	
-
-		}
-	
-
-			//Adding hardcoded country code as per Customer Request 
-			if(MobileNumber.length < 12)
-		{
-			MobileNumber="91"+MobileNumber
-		}
-
-		
-	    if(message.includes("#Params1"))
-		{
-			message=message.replace("#Params1",Params1);
-		}
-		if(message.includes("#Params2"))
-		{
-			message=message.replace("#Params2",Params2);
-		}
-		if(message.includes("#Params3"))
-		{
-			message=message.replace("#Params3",Params3);
-		}
-		if(message.includes("#Params4"))
-		{
-			message=message.replace("#Params4",Params4);
-		}
-		if(message.includes("#Params5"))
-		{
-			message=message.replace("#Params5",Params5);
-		}
-		if(message.includes("#Params6"))
-		{
-			message=message.replace("#Params6",Params6);
-		}
-		if(message.includes("#Params7"))
-		{
-			message=message.replace("#Params7",Params7);
-		}
-		if(message.includes("#Params8"))
-		{
-			message=message.replace("#Params8",Params8);
-		}
-		if(message.includes("#Params9"))
-		{
-			message=message.replace("#Params9",Params9);
-		}
-	
-		var smsgid=MobileNumber+"$"+message+"$"+FROM+"$"+CardNumber+"$"+Campaignname+"$"+campaignTag+"$"+channel+"$"+medium+"$"+s_date+"$"+e_date+"$"+vender+"$"+user+"$"+Tag1+"$"+Tag2+"$"+Tag3+"$"+Tag4+"$"+Tag5;
-	    var userAcc = config.get("Creds");
-		for (var i = 0; i < userAcc.length; i++) {
-		  if (userAcc[i]["user"] == user) {
-			Password = userAcc[i]["password"];
-		  }
-		}
-		if(user.includes("_option1"))
-		{
-			user1=user.replace("_option1","");
-		}
-		else
-		{
-			user1=user;
-		}
-
-		let date_time = new Date();
-		let date = ("0" + date_time.getDate()).slice(-2);
-		let month = ("0" + (date_time.getMonth() + 1)).slice(-2);
-		let year = date_time.getFullYear();		
-
-		if(vender=="ICS")
-			{				
-				const sqlite3 = require('sqlite3').verbose();
-
-				let db = new sqlite3.Database('./db/landmark.db');
-
-				db.run('CREATE TABLE Callbackdata(mobile text,smsgid text)');
-
-				// insert one row into the langs table
-				db.run(`INSERT INTO (mobile,smsgid) VALUES(?,?)`, [MobileNumber,smsgid], function(err) {
-				  if (err) {
-					return console.log(err.message);
-				  }
-				  // get the last insert id
-				  console.log(`A row has been inserted with rowid ${this.lastID}`);
-				});
-			  
-				// close the database connection
-				db.close();	  
-			
-			}
-													
-		var options = {
-			'method': 'GET',
-			"body":bodyJason,
-			"json":true,
-			'url': ApiUrl
-			};
-
-			request(options, function (error, response) {
-				if (error) {
-				  logger.info(
-					"Date:" +
-					  Date() +
-					  " MobileNumber:" +
-					  bodyJason.msisdn +
-					  " Error:" +
-					  JSON.stringify(error)
-				  );
-				  if (process.env.debug == "Y"){
-					logger.info(
-					  "Date:" +
-						Date() +
-						" MobileNumber:" +
-						bodyJason.msisdn +
-						" Error:" +
-						JSON.stringify(error)
-					);
-				}
-				  res.send(400, error);
+						}
+					})
 				} else {
-				  logger.info(
-					"Date:" +
-					  Date() +
-					  " MobileNumber:" +
-					  bodyJason.msisdn +
-					  " Response:" +
-					  JSON.stringify(response.body)
-				  );
-				  if (process.env.debug == "Y")
-					logger.info(
-					  "Date:" +
-						Date() +
-						" MobileNumber:" +
-						bodyJason.msisdn +
-						" Response:" +
-						JSON.stringify(response.body)
-					);
-				  res.send(200, response);
+					// Table just created, creating some rows
+					var insert = 'INSERT INTO Callbackdata (qStatus, qMobile, qMsgRef, qDTime, qNotes, SMSMSGID) VALUES (?,?,?,?,?,?)'
+					db.run(insert, [qStatus,qMobile,qMsgRef,qDTime,qNotes,SMSMSGID],(err)=>{
+						if(err==null){
+							 res.write("Data Inserted.")
+							} else { 
+								res.write(err)
+							}
+					})
 				}
-			  });
-			
-		
-			
-		}			
-            res.send(200, 'Execute');
-        } 			
-		else {
-            console.error('inArguments invalid.');
-		
-            return res.status(400).end();
-        }					
-   
-	});}
-	catch (err)
-	{
-		logger.info('jwtSecret1: '+process.env.jwtSecret);
-		logger.error('Date1'+ Date()+ 'Error '+JSON.stringify(err) );
-		return res.status(401).end();
-	}
-
+			})
 	
-});
+		}
+	})
+
+
+   }) 
+
+
 app.post('/ics/execute', (req, res) => {
     // example on how to decode JWT
 	try{
@@ -654,8 +490,15 @@ app.post('/ics/execute', (req, res) => {
 			message=message.replace("#Params9",Params9);
 		}
 	
-		var smsgid=MobileNumber+"$"+message+"$"+FROM+"$"+CardNumber+"$"+Campaignname+"$"+campaignTag+"$"+channel+"$"+medium+"$"+s_date+"$"+e_date+"$"+vender+"$"+user+"$"+Tag1+"$"+Tag2+"$"+Tag3+"$"+Tag4+"$"+Tag5;
-	    var userAcc = config.get("Creds");
+		if(vender=="ICS")
+			{
+				var smsgid=MobileNumber+"$"+message+"$"+FROM+"$"+CardNumber+"$"+Campaignname+"$"+campaignTag+"$"+channel+"$"+medium+"$"+s_date+"$"+e_date+"$"+vender+"$"+user+"$"+Tag1+"$"+Tag2+"$"+Tag3+"$"+Tag4+"$"+Tag5;
+			}
+			else{
+				var smsgid=MobileNumber+"|"+message+"|"+FROM+"|"+CardNumber+"|"+Campaignname+"|"+campaignTag+"|"+channel+"|"+medium+"|"+s_date+"|"+e_date+"|"+vender+"|"+user+"|"+Tag1+"|"+Tag2+"|"+Tag3+"|"+Tag4+"|"+Tag5;
+			}
+		
+		var userAcc = config.get("Creds");
 		for (var i = 0; i < userAcc.length; i++) {
 		  if (userAcc[i]["user"] == user) {
 			Password = userAcc[i]["password"];
