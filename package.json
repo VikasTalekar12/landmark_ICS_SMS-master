@@ -39,7 +39,6 @@
     "nodemailer": "6.4.6",
     "request": "2.81.0",
     "require": "0.4.4",
-    "sqlite3": "^5.1.7",
     "ssh2-sftp-client": "9.0.3",
     "underscore": "1.13.6",
     "winston": "3.8.2",

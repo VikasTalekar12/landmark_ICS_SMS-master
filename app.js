@@ -29,8 +29,6 @@ const fs = require('fs');
 require('dotenv').config();
 const winston = require('winston');
 require('winston-daily-rotate-file');
-const sqlite3 = require('sqlite3').verbose();
-
 
 var logConfiguration = new winston.transports.DailyRotateFile({
     filename: __dirname+'/logs/logs-%DATE%.log',
@@ -329,51 +327,7 @@ app.post('/ics/publish',  (req, res) => {
 	var qNotes = req.params['qNotes'];
 	var SMSMSGID=req.params['SMSMSGID'];
 
-	let db = new sqlite3.Database(path.join(__dirname,'/database/landmark.db'), (err) => {
-		if (err) {
-			// Cannot open database
-			console.error(err.message)
-			throw err
-		} else {
-			console.log('Connected to the SQlite database.')
-			db.run(`CREATE TABLE Callbackdata (
-				id INTEGER PRIMARY KEY AUTOINCREMENT,
-				qStatus text,
-				qMobile text,
-				qMsgRef text,
-				qDTime text,
-				qNotes text,
-				SMSMSGID text
-				)`, (err) => {
-				if (err) {
-					// Table already created
-					var insert = 'INSERT INTO Callbackdata (qStatus, qMobile, qMsgRef, qDTime, qNotes, SMSMSGID) VALUES (?,?,?,?,?,?)'
-					db.run(insert, [qStatus,qMobile,qMsgRef,qDTime,qNotes,SMSMSGID],(err)=>{
-						if(err==null){ 
-							res.write("Data Inserted.")
-						} else { 
-							res.write(err)
-
-						}
-					})
-				} else {
-					// Table just created, creating some rows
-					var insert = 'INSERT INTO Callbackdata (qStatus, qMobile, qMsgRef, qDTime, qNotes, SMSMSGID) VALUES (?,?,?,?,?,?)'
-					db.run(insert, [qStatus,qMobile,qMsgRef,qDTime,qNotes,SMSMSGID],(err)=>{
-						if(err==null){
-							 res.write("Data Inserted.")
-							} else { 
-								res.write(err)
-							}
-					})
-				}
-			})
-	
-		}
-	})
-
-
-   }) 
+   });
 
 
 app.post('/ics/execute', (req, res) => {
