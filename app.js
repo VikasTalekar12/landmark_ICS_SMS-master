@@ -327,6 +327,9 @@ app.post('/ics/publish',  (req, res) => {
 	var qNotes = req.params['qNotes'];
 	var SMSMSGID=req.params['SMSMSGID'];
 
+	logger.info("SMSMSGID: "+SMSMSGID);
+
+
    });
 
 
